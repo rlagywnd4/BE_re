@@ -16,6 +16,9 @@ public class GifService {
 
     private final GifRepository gifRepository;
 
+    // 현업에서는 랜덤을 만들때 하나의 인스턴스를 만들고 재사용함. 여기서는 계속 새로운 인스턴스 생성, 다음 멘토링전까지 현업에서 왜그러는지 찾기
+    private static final Random RANDOM = new Random();
+
     @Autowired
     public GifService(GifRepository gifRepository) {
         this.gifRepository = gifRepository;
@@ -31,8 +34,7 @@ public class GifService {
         }
 
         // 랜덤하게 GifEntity 선택
-        Random random = new Random();
-        GifEntity randomGifEntity = gifEntities.get(random.nextInt(gifEntities.size()));
+        GifEntity randomGifEntity = gifEntities.get(RANDOM.nextInt(gifEntities.size()));
 
         // GifEntity의 gifUrl 반환
         return randomGifEntity.getGifUrl();

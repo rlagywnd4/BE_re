@@ -39,6 +39,8 @@ public class UserController {
 
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+    final String CHECKED = "checked";
+
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody UserDTO dto) {
         try{
@@ -66,7 +68,7 @@ public class UserController {
 
             // 유저 유효성 검사
             String validCheck = isValidUser(dto);
-            if (!validCheck.equals("checked")){
+            if (!validCheck.equals(CHECKED)){
                 return ResponseEntity.badRequest().body(false);
             }
 
@@ -94,7 +96,7 @@ public class UserController {
 
             // 유저 유효성 검사
             String validCheck = isValidUser(dto);
-            if (!validCheck.equals("checked")) {
+            if (!validCheck.equals(CHECKED)) {
                 ResponseDTO resDTO = ResponseDTO.builder()
                         .error(validCheck)
                         .build();
@@ -125,7 +127,7 @@ public class UserController {
 
                 return ResponseEntity.ok().body(resUserDTO);
 
-            } else if(user.getAge() != "getByCredentials error"){
+            } else if(user.getAge().equals("getByCredentials error")){ // string 비교는 .equalse()함수를 사용해야함(==은 참조값 비교하기때문에 )
                 // userId, password로 찾은 유저 없음 = 로그인 실패
                 ResponseDTO resDTO = ResponseDTO.builder()
                         .error(user.getAge()) // service에서 로그인 실패 사유를 age에 담아 보내기 때문
@@ -220,7 +222,7 @@ public class UserController {
         }
         else {
             log.info("user valid checked");
-            return "checked";
+            return CHECKED;
         }
     }
 }

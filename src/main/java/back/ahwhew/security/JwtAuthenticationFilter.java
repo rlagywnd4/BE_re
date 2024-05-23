@@ -46,7 +46,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 log.info("claims : {}", claims);
                 log.info("expire Time: {}", claims.getExpiration());
 
-                if(claims.getIssuer() == "Token error"){
+                if(claims.getIssuer().equals("Token error")){
                     log.info("Token error from filter");
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     response.setContentType("application/json");
@@ -54,7 +54,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     response.getWriter().write("토큰 에러 발생");
                     return;
 
-                }else if(claims.getIssuer() == "Expired"){
+                }else if(claims.getIssuer().equals("Expired")){
                     // 엑세스 토큰이 유효시간이 지난 경우
                     log.info("Token is expired");
                     log.info("req url: {}", request.getContextPath());

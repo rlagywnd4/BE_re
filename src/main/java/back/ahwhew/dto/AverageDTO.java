@@ -15,7 +15,6 @@ public class AverageDTO {
         this.averagePositive = averagePositive;
         this.averageNegative = averageNegative;
         this.averageNeutral = averageNeutral;
-        this.count = count;
     }
 
     public LocalDate getDate(){return date;}

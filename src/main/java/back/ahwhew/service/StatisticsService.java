@@ -285,6 +285,8 @@ public class StatisticsService {
 //        }
 //    }
 public TopMemesResponseDTO getTopMemesByUser(LocalDate startDate, LocalDate endDate) {
+        final String NODATA = "No data available";
+
     // API 응답을 담을 DTO 객체 생성
     TopMemesResponseDTO response = new TopMemesResponseDTO();
 
@@ -295,7 +297,7 @@ public TopMemesResponseDTO getTopMemesByUser(LocalDate startDate, LocalDate endD
         if (allDateInRange.isEmpty()) {
             // 데이터가 없는 경우 처리
             response.setSuccess(false);
-            response.setMessage("No data available");
+            response.setMessage(NODATA);
             return response;
         }
         // 기간 필터링된 데이터 수집
@@ -311,7 +313,7 @@ public TopMemesResponseDTO getTopMemesByUser(LocalDate startDate, LocalDate endD
         // 필터링된 데이터가 없을 경우 처리
         if (filteredData.isEmpty()) {
             response.setSuccess(false);
-            response.setMessage("No data available");
+            response.setMessage(NODATA);
             return response;
         }
 
